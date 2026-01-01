@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import "Navigation.dart";
+import "NearMe.dart";
 
 class Parlour extends StatelessWidget {
   const Parlour({super.key});
@@ -53,40 +55,53 @@ class Parlour extends StatelessWidget {
       
       children: [
         Expanded(
-          child:Container(
+          child:InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> const NearMe(),));
+            },
+            child: Container(
+              
+              padding:const EdgeInsets.all(10),
+              decoration:BoxDecoration(color:Colors.grey.shade200, borderRadius: BorderRadius.circular(12)),
+                    child:const Center(
+                    child:Text(
+            "Parlour Near Me",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black
+            ),
             
-            padding:const EdgeInsets.all(10),
-            decoration:BoxDecoration(color:Colors.grey.shade200, borderRadius: BorderRadius.circular(12)),
-        child:const Center(
-        child:Text(
-          "Parlour Near Me",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.black
-          ),
-          
-          
-        ),
-        ),
+            
+                    ),
+                    ),
+            ),
           ),
         ),
         const SizedBox(width:12),
         
-        Expanded(
-          child:Container(
-            padding:const EdgeInsets.all(10),
-            decoration:BoxDecoration(color:Colors.grey.shade200, borderRadius: BorderRadius.circular(12)),
-        child:const Center(
-        child:Text(
-          "Book an Appointment",
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.black
-          ),
-        ),
-        ),
+          Expanded(
+          child:InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> const NavigationCategoryPages(),));
+            },
+            child: Container(
+              
+              padding:const EdgeInsets.all(10),
+              decoration:BoxDecoration(color:Colors.grey.shade200, borderRadius: BorderRadius.circular(12)),
+                    child:const Center(
+                    child:Text(
+            "Book An Appointment",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black
+            ),
+            
+            
+                    ),
+                    ),
+            ),
           ),
         ),
       ],
@@ -94,7 +109,7 @@ class Parlour extends StatelessWidget {
   ),
 )
 
-          )
+          ),
         )
       ],)
       ,),

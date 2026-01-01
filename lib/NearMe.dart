@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+
+class NearMe extends StatelessWidget {
+  const NearMe({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("List of Parlours")),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: Card(
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Container(
+                  height: 120,
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    children: [
+                      // -------- LEFT OPTION ----------
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            // TODO: Navigator.push(...)
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "Gives the list of parlour",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
