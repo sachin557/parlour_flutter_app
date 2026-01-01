@@ -23,7 +23,7 @@ class NavigationCategoryPages extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: Row(
                     children: [
-                      // -------- LEFT OPTION ----------
+                      // LEFT
                       Expanded(
                         child: InkWell(
                           onTap: () {
@@ -49,7 +49,7 @@ class NavigationCategoryPages extends StatelessWidget {
 
                       const SizedBox(width: 12),
 
-                      // -------- RIGHT OPTION ----------
+                      // RIGHT
                       Expanded(
                         child: InkWell(
                           onTap: () {

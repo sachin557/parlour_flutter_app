@@ -23,7 +23,7 @@ class NearMe extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: Row(
                     children: [
-                      // -------- LEFT OPTION ----------
+                      // LEFT
                       Expanded(
                         child: InkWell(
                           onTap: () {
