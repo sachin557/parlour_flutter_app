@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import "Navigation.dart";
 import "NearMe.dart";
-
+import "aisearch.dart";
 class Parlour extends StatelessWidget {
   const Parlour({super.key});
 
@@ -114,7 +114,12 @@ class Parlour extends StatelessWidget {
       ],)
       ,),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed:(){},
+        onPressed:(){
+          Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const AiSearchPage()),
+    );
+        },
         icon:Icon(Icons.chat_bubble_outline_rounded),
         label:const Text("AI Search")
         
