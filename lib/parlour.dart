@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import "Navigation.dart";
 import "NearMe.dart";
 import "aisearch.dart";
+import "category.dart";
 class Parlour extends StatelessWidget {
   const Parlour({super.key});
 
@@ -92,6 +93,82 @@ class Parlour extends StatelessWidget {
                     child:const Center(
                     child:Text(
             "Book An Appointment",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black
+            ),
+            
+            
+                    ),
+                    ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+)
+
+          ),
+        ),
+        const SizedBox(height:12),
+        // second row options 
+        SizedBox(
+          width:double.infinity,
+          child:Card(
+            color:Colors.transparent,
+            elevation:10,
+            shape:RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16)
+              
+            ),
+            
+            child:Container(
+  height: 120,
+  padding: const EdgeInsets.symmetric(horizontal: 16),
+  child: Center( 
+    child: Row(
+      
+      children: [
+        Expanded(
+          child:InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> const CategoryPages(),));
+            },
+            child: Container(
+              
+              padding:const EdgeInsets.all(10),
+              decoration:BoxDecoration(color:Colors.grey.shade200, borderRadius: BorderRadius.circular(12)),
+                    child:const Center(
+                    child:Text(
+            "Category",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black
+            ),
+            
+            
+                    ),
+                    ),
+            ),
+          ),
+        ),
+        const SizedBox(width:12),
+        
+          Expanded(
+          child:InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> const NavigationCategoryPages(),));
+            },
+            child: Container(
+              
+              padding:const EdgeInsets.all(10),
+              decoration:BoxDecoration(color:Colors.grey.shade200, borderRadius: BorderRadius.circular(12)),
+                    child:const Center(
+                    child:Text(
+            "optional",
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
