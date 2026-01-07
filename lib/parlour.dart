@@ -3,6 +3,8 @@ import "Navigation.dart";
 import "NearMe.dart";
 import "aisearch.dart";
 import "category.dart";
+import "guid.dart";
+import "Bonus.dart";
 class Parlour extends StatelessWidget {
   const Parlour({super.key});
 
@@ -11,9 +13,12 @@ class Parlour extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading:(
-           IconButton(onPressed: (){}
-          , icon: Icon(Icons.home))
+        leading:Tooltip(
+          message: "Referral Bonus",
+           child:IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (_)=> const Bonus(),));
+           }
+          , icon: Icon(Icons.monetization_on))
         ),
         title: Row(
           mainAxisSize: MainAxisSize.min,
@@ -31,10 +36,19 @@ class Parlour extends StatelessWidget {
           ],
         ),
         actions: [
-          IconButton(onPressed: (){}, 
-          icon: Icon(Icons.menu_book_outlined)),
-          
-        ]
+  Tooltip(
+    message: "Guide",
+    child: IconButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const Guid()),
+        );
+      },
+      icon: const Icon(Icons.menu_book_outlined),
+    ),
+  ),
+]
       ),
       body:Padding(padding: const EdgeInsets.all(10),
       child:Column(children: [
@@ -190,18 +204,19 @@ class Parlour extends StatelessWidget {
         )
       ],)
       ,),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed:(){
-          Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const AiSearchPage()),
-    );
-        },
-        icon:Icon(Icons.chat_bubble_outline_rounded),
-        label:const Text("AI Search")
-        
-        
-         ),
+      floatingActionButton: Tooltip(
+  message: "AI Search",
+  child: FloatingActionButton.extended(
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const AiSearchPage()),
+      );
+    },
+    icon: const Icon(Icons.chat_bubble_outline_rounded),
+    label: const Text("AI Search"),
+  ),
+),
          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
 
     );
