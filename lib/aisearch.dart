@@ -34,7 +34,7 @@ class _AiSearchPageState extends State<AiSearchPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.black,
               boxShadow: [
                 BoxShadow(
                   color: Colors.black12,

@@ -9,7 +9,7 @@ class CategoryPages extends StatefulWidget {
 }
 
 class _CategoryPagesState extends State<CategoryPages> {
-  String selectedSort = "none"; // 👈 store selection
+  String selectedSort = "none";
 
   String getSortLabel() {
     if (selectedSort == "high") return "High → Low";
@@ -21,20 +21,19 @@ class _CategoryPagesState extends State<CategoryPages> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(getSortLabel()), // 👈 show selected value
+        title: Text(getSortLabel()),
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.sort),
             onSelected: (value) {
               setState(() {
-                selectedSort = value; // 👈 save selection
+                selectedSort = value;
               });
 
-              // 🔹 Later: apply sorting logic
               if (value == "high") {
-                print("Sort High → Low");
+                debugPrint("Sort High → Low");
               } else {
-                print("Sort Low → High");
+                debugPrint("Sort Low → High");
               }
             },
             itemBuilder: (context) => const [
@@ -52,9 +51,13 @@ class _CategoryPagesState extends State<CategoryPages> {
       ),
 
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(12),
         child: Column(
           children: [
+
+            // 
+            const SizedBox(height: 70),
+
             SizedBox(
               width: double.infinity,
               child: Card(
@@ -63,43 +66,68 @@ class _CategoryPagesState extends State<CategoryPages> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Container(
-                  height: 120,
+                  height: 180,
                   padding: const EdgeInsets.all(12),
-                  child: Row(
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => const NameList()),
-                            );
-                          },
-                          child: _categoryBox("Hair", Colors.pinkAccent),
-                        ),
+
+                      // 
+                      Row(
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const NameList(),
+                                  ),
+                                );
+                              },
+                              child: _categoryBox(
+                                "Hair",
+                                Colors.orangeAccent,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => const NameList(),
+                                  ),
+                                );
+                              },
+                              child: _categoryBox(
+                                "Spa",
+                                Colors.orangeAccent,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
+
+                      const SizedBox(height: 12),
+
+                      // 🔹 SECOND ROW (FULL WIDTH)
+                      SizedBox(
+                        width: double.infinity,
                         child: InkWell(
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (_) => const NameList()),
+                              MaterialPageRoute(
+                                builder: (_) => const NameList(),
+                              ),
                             );
                           },
-                          child: _categoryBox("Spa", Colors.orangeAccent),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => const NameList()),
-                            );
-                          },
-                          child: _categoryBox("Makeup", Colors.pinkAccent),
+                          child: _categoryBox(
+                            "Makeup",
+                            Colors.pinkAccent,
+                          ),
                         ),
                       ),
                     ],
@@ -113,17 +141,24 @@ class _CategoryPagesState extends State<CategoryPages> {
     );
   }
 
+  
+
   Widget _categoryBox(String text, Color color) {
     return Container(
+      height: 60,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey),
         color: color,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300),
       ),
       child: Center(
         child: Text(
           text,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
     );

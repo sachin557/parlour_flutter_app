@@ -5,6 +5,7 @@ import "aisearch.dart";
 import "category.dart";
 import "guid.dart";
 import "Bonus.dart";
+import "support.dart";
 class Parlour extends StatelessWidget {
   const Parlour({super.key});
 
@@ -52,6 +53,7 @@ class Parlour extends StatelessWidget {
       ),
       body:Padding(padding: const EdgeInsets.all(10),
       child:Column(children: [
+        const SizedBox(height:70),
         SizedBox(
           width:double.infinity,
           child:Card(
@@ -63,12 +65,14 @@ class Parlour extends StatelessWidget {
             ),
             
             child:Container(
+              
   height: 120,
   padding: const EdgeInsets.symmetric(horizontal: 16),
   child: Center( 
     child: Row(
-      
       children: [
+      
+
         Expanded(
           child:InkWell(
             onTap: (){
@@ -174,7 +178,7 @@ class Parlour extends StatelessWidget {
           Expanded(
           child:InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (_)=> const NavigationCategoryPages(),));
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> const Support(),));
             },
             child: Container(
               
@@ -182,7 +186,7 @@ class Parlour extends StatelessWidget {
               decoration:BoxDecoration(color:Colors.grey.shade200, borderRadius: BorderRadius.circular(12)),
                     child:const Center(
                     child:Text(
-            "optional",
+            "Contact Support",
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
