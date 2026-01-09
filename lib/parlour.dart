@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import "Navigation.dart";
 import "NearMe.dart";
 import "aisearch.dart";
-import "category.dart";
+
 import "guid.dart";
 import "Bonus.dart";
 import "support.dart";
+import "Men_women_category.dart";
 class Parlour extends StatelessWidget {
   const Parlour({super.key});
 
@@ -152,7 +153,7 @@ class Parlour extends StatelessWidget {
         Expanded(
           child:InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (_)=> const CategoryPages(),));
+              Navigator.push(context, MaterialPageRoute(builder: (_)=> const MenWomenCtegory(),));
             },
             child: Container(
               
