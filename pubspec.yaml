@@ -62,6 +62,11 @@ flutter:
       - assets\logo.png
       - assets\men.png
       - assets\women.png
+      - assets\Hair_men.png
+      - assets\Hair_women.png
+      - assets\Makeup_men.png
+      - assets\makeup_women.png
+      - assets\spa.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

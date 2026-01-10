@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
-import "makeuplist.dart";
+import 'package:parlour_app/gender_type.dart';
+import 'makeuplist.dart';
 
 class CategoryPages extends StatefulWidget {
-  const CategoryPages({super.key});
+  final GenderType gender;
+
+  const CategoryPages({
+    super.key,
+    required this.gender,
+  });
 
   @override
   State<CategoryPages> createState() => _CategoryPagesState();
@@ -10,6 +16,9 @@ class CategoryPages extends StatefulWidget {
 
 class _CategoryPagesState extends State<CategoryPages> {
   String selectedSort = "none";
+
+  bool get isMen => widget.gender == GenderType.men;
+  bool get isWomen => widget.gender == GenderType.women;
 
   String getSortLabel() {
     if (selectedSort == "high") return "High → Low";
@@ -21,7 +30,7 @@ class _CategoryPagesState extends State<CategoryPages> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(getSortLabel()),
+        title: Text(isMen ? "Men Services" : "Women Services"),
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.sort),
@@ -29,12 +38,6 @@ class _CategoryPagesState extends State<CategoryPages> {
               setState(() {
                 selectedSort = value;
               });
-
-              if (value == "high") {
-                debugPrint("Sort High → Low");
-              } else {
-                debugPrint("Sort Low → High");
-              }
             },
             itemBuilder: (context) => const [
               PopupMenuItem(
@@ -49,61 +52,56 @@ class _CategoryPagesState extends State<CategoryPages> {
           ),
         ],
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-
-            // 
             const SizedBox(height: 70),
 
             SizedBox(
+              
               width: double.infinity,
               child: Card(
+                color:Colors.transparent,
                 elevation: 6,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Container(
-                  height: 180,
+                  height: isWomen ? 260 : 220,
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     children: [
-
-                      // 
+                      // 🔹 FIRST ROW
                       Row(
                         children: [
-                          Expanded(
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const NameList(),
-                                  ),
-                                );
-                              },
-                              child: _categoryBox(
-                                "Hair",
-                                Colors.orangeAccent,
+                          if (isMen)
+                            Expanded(
+                              child: InkWell(
+                                onTap: () => _openList(context),
+                                child: _categoryBox(
+                                  text: "Hair",
+                                  iconPath: "assets/Hair_men.png",
+                                ),
                               ),
                             ),
-                          ),
+                          if (isWomen)
+                            Expanded(
+                              child: InkWell(
+                                onTap: () => _openList(context),
+                                child: _categoryBox(
+                                  text: "Hair",
+                                  iconPath: "assets/Hair_women.png",
+                                ),
+                              ),
+                            ),
                           const SizedBox(width: 12),
                           Expanded(
                             child: InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => const NameList(),
-                                  ),
-                                );
-                              },
+                              onTap: () => _openList(context),
                               child: _categoryBox(
-                                "Spa",
-                                Colors.orangeAccent,
+                                text: isMen ? "Men Spa" : "Spa",
+                                iconPath: "assets/spa.png",
                               ),
                             ),
                           ),
@@ -112,24 +110,31 @@ class _CategoryPagesState extends State<CategoryPages> {
 
                       const SizedBox(height: 12),
 
-                      // 🔹 SECOND ROW (FULL WIDTH)
-                      SizedBox(
-                        width: double.infinity,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const NameList(),
-                              ),
-                            );
-                          },
-                          child: _categoryBox(
-                            "Makeup",
-                            Colors.pinkAccent,
+                      // 🔹 WOMEN ONLY
+                      if (isWomen)
+                        SizedBox(
+                          width: double.infinity,
+                          child: InkWell(
+                            onTap: () => _openList(context),
+                            child: _categoryBox(
+                              text: "Makeup",
+                              iconPath: "assets/Makeup_women.png",
+                            ),
                           ),
                         ),
-                      ),
+
+                      // 🔹 MEN ONLY
+                      if (isMen)
+                        SizedBox(
+                          width: double.infinity,
+                          child: InkWell(
+                            onTap: () => _openList(context),
+                            child: _categoryBox(
+                              text: "Groom Makeup Artist",
+                              iconPath: "assets/Makeup_men.png",
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -141,24 +146,45 @@ class _CategoryPagesState extends State<CategoryPages> {
     );
   }
 
-  
+  void _openList(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const NameList()),
+    );
+  }
 
-  Widget _categoryBox(String text, Color color) {
+  // ✅ IMAGE + TEXT BOX (50x50 image, black text)
+  Widget _categoryBox({
+    required String text,
+    required String iconPath,
+  }) {
     return Container(
-      height: 60,
+      height: 70,
       decoration: BoxDecoration(
-        color: color,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
       ),
       child: Center(
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              iconPath,
+              height: 50,
+              width: 50,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(width: 12),
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ],
         ),
       ),
     );

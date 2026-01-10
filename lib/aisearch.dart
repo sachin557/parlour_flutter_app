@@ -47,7 +47,7 @@ class _AiSearchPageState extends State<AiSearchPage> {
                 Expanded(
                   child: TextField(
                     style: TextStyle(
-                      color:Colors.black
+                      color:Colors.white
                     ),
                     controller: _controller,
                     decoration: InputDecoration(

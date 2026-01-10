@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import "category.dart";
+import 'package:parlour_app/gender_type.dart';
+import 'category.dart';
+
 class MenWomenCtegory extends StatelessWidget {
   const MenWomenCtegory({super.key});
 
@@ -14,6 +16,7 @@ class MenWomenCtegory extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Card(
+                color:Colors.transparent,
                 elevation: 6,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -23,82 +26,66 @@ class MenWomenCtegory extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: Row(
                     children: [
-                      
-                      // LEFT
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_)=> const CategoryPages(),));// TODO: Navigator.push(...)
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child:  Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                    Image.asset(
-                                       'assets/men.png',
-                                        height: 50,
-                                       width: 50,
-                                          ),
-                                   const SizedBox(width: 10),
-                                  
-                                 const  Text(
-                                    "Men",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const CategoryPages(
+                                  gender: GenderType.men,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
+                          child: _box("Men", "assets/men.png"),
                         ),
                       ),
-
                       const SizedBox(width: 12),
-
-                      // RIGHT
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (_)=> const CategoryPages(),));// TODO: Navigator.push(...)
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child:  Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                       'assets/women.png',
-                                        height: 50,
-                                       width: 50,
-                                          ),
-                                   const SizedBox(width: 10),
-                                  const Text(
-                                    "Women",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const CategoryPages(
+                                  gender: GenderType.women,
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
+                          child: _box("Women", "assets/women.png"),
                         ),
                       ),
                     ],
                   ),
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _box(String text, String img) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey),
+      ),
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(img, height: 50, width: 50),
+            const SizedBox(width: 10),
+            Text(
+              text,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
