@@ -14,7 +14,7 @@ class Parlour extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 🌈 Gradient for option boxes
+    // 
     const LinearGradient optionGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -25,7 +25,7 @@ class Parlour extends StatelessWidget {
       ],
     );
 
-    // 🌈 Gemini-style gradient for AI Search
+    // 
     const LinearGradient geminiGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -36,51 +36,52 @@ class Parlour extends StatelessWidget {
       ],
     );
 
+    //
+    const LinearGradient neonHeaderBorder = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color(0xFF00E5FF),
+        Color(0xFF7C4DFF),
+        Color(0xFFFF4081),
+      ],
+    );
+
     return Scaffold(
-      // ================= HEADER =================
+      // 
       appBar: AppBar(
-        toolbarHeight: 90,
+        toolbarHeight: 96,
         elevation: 0,
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
-
         flexibleSpace: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
             child: Container(
-              // 🔹 OUTER = GRADIENT BORDER
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF7FC8F8),
-                    Color(0xFFF77EB9),
-                    Color(0xFFFED7A5),
-                  ],
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(18)),
+              decoration: BoxDecoration(
+                gradient: neonHeaderBorder,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.cyanAccent.withOpacity(0.6),
+                    blurRadius: 18,
+                    spreadRadius: 1,
+                  ),
+                ],
               ),
-              padding: const EdgeInsets.all(2), // border thickness
-
+              padding: const EdgeInsets.all(2.5),
               child: Container(
-                // 🔹 INNER = HEADER BODY
                 decoration: BoxDecoration(
                   color: isDark ? Colors.black : Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.25),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
+                  borderRadius: BorderRadius.circular(18),
                 ),
-
                 child: Row(
                   children: [
-                    // LEFT ICON
+                    // BONUS
                     IconButton(
                       tooltip: "Referral Bonus",
-                      icon: const Icon(Icons.monetization_on),
+                      icon: Icon(Icons.monetization_on,
+                          color: isDark ? Colors.white : Colors.black),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -89,34 +90,32 @@ class Parlour extends StatelessWidget {
                       },
                     ),
 
+                    _neonDivider(),
+
                     const Spacer(),
 
-                    // CENTER LOGO + TEXT
+                    // LOGO + TITLE
                     Row(
                       children: [
                         Image.asset(
                           'assets/logo.png',
-                          width: 34,
-                          height: 34,
+                          width: 36,
+                          height: 36,
                         ),
-                        const SizedBox(width: 8),
-                        Text(
-                          "NoorCall",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : Colors.black,
-                          ),
-                        ),
+                        const SizedBox(width: 10),
+                        _StylishHeaderText(isDark: isDark),
                       ],
                     ),
 
                     const Spacer(),
 
-                    // RIGHT ICON
+                    _neonDivider(),
+
+                    // GUIDE
                     IconButton(
                       tooltip: "Guide",
-                      icon: const Icon(Icons.menu_book_outlined),
+                      icon: Icon(Icons.menu_book_outlined,
+                          color: isDark ? Colors.white : Colors.black),
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -132,7 +131,7 @@ class Parlour extends StatelessWidget {
         ),
       ),
 
-      // ================= BODY =================
+      // body
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -176,7 +175,7 @@ class Parlour extends StatelessWidget {
         ),
       ),
 
-      // ================= GEMINI AI SEARCH =================
+      // ai search
       floatingActionButton: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -216,7 +215,7 @@ class Parlour extends StatelessWidget {
     );
   }
 
-  // ================= OPTION ROW =================
+  // option box
   Widget _optionRow(
     BuildContext context,
     LinearGradient gradient, {
@@ -260,7 +259,7 @@ class Parlour extends StatelessWidget {
     );
   }
 
-  // ================= OPTION BOX =================
+  // 
   Widget _optionBox({
     required String text,
     required VoidCallback onTap,
@@ -287,9 +286,9 @@ class Parlour extends StatelessWidget {
             text,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.black,
               shadows: [
                 Shadow(
                   offset: Offset(2, 2),
@@ -299,6 +298,65 @@ class Parlour extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  // neon
+  Widget _neonDivider() {
+    return Container(
+      height: 28,
+      width: 1.6,
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF00E5FF),
+            Color(0xFF7C4DFF),
+            Color(0xFFFF4081),
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.cyanAccent.withOpacity(0.9),
+            blurRadius: 10,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// header style
+class _StylishHeaderText extends StatelessWidget {
+  final bool isDark;
+  const _StylishHeaderText({required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (bounds) => const LinearGradient(
+        colors: [
+          Color(0xFF00E5FF),
+          Color(0xFF69F0AE),
+        ],
+      ).createShader(bounds),
+      child: Text(
+        "NoorCall",
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w800,
+          letterSpacing: 2,
+          color: Colors.white,
+          shadows: [
+            Shadow(
+              color: Colors.cyanAccent.withOpacity(0.9),
+              blurRadius: 14,
+            ),
+          ],
         ),
       ),
     );
