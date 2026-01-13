@@ -14,7 +14,6 @@ class Parlour extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 
     const LinearGradient optionGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -25,7 +24,6 @@ class Parlour extends StatelessWidget {
       ],
     );
 
-    // 
     const LinearGradient geminiGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -36,7 +34,6 @@ class Parlour extends StatelessWidget {
       ],
     );
 
-    //
     const LinearGradient neonHeaderBorder = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -48,7 +45,7 @@ class Parlour extends StatelessWidget {
     );
 
     return Scaffold(
-      // 
+      // ================= HEADER =================
       appBar: AppBar(
         toolbarHeight: 96,
         elevation: 0,
@@ -65,7 +62,6 @@ class Parlour extends StatelessWidget {
                   BoxShadow(
                     color: Colors.cyanAccent.withOpacity(0.6),
                     blurRadius: 18,
-                    spreadRadius: 1,
                   ),
                 ],
               ),
@@ -77,9 +73,7 @@ class Parlour extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // BONUS
                     IconButton(
-                      tooltip: "Referral Bonus",
                       icon: Icon(Icons.monetization_on,
                           color: isDark ? Colors.white : Colors.black),
                       onPressed: () {
@@ -94,16 +88,11 @@ class Parlour extends StatelessWidget {
 
                     const Spacer(),
 
-                    // LOGO + TITLE
                     Row(
                       children: [
-                        Image.asset(
-                          'assets/logo.png',
-                          width: 36,
-                          height: 36,
-                        ),
+                        Image.asset('assets/logo.png', width: 36),
                         const SizedBox(width: 10),
-                        _StylishHeaderText(isDark: isDark),
+                        const _AnimatedHeaderText(),
                       ],
                     ),
 
@@ -111,9 +100,7 @@ class Parlour extends StatelessWidget {
 
                     _neonDivider(),
 
-                    // GUIDE
                     IconButton(
-                      tooltip: "Guide",
                       icon: Icon(Icons.menu_book_outlined,
                           color: isDark ? Colors.white : Colors.black),
                       onPressed: () {
@@ -131,13 +118,12 @@ class Parlour extends StatelessWidget {
         ),
       ),
 
-      // body
+      // ================= BODY =================
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             const SizedBox(height: 60),
-
             _optionRow(
               context,
               optionGradient,
@@ -154,9 +140,7 @@ class Parlour extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 12),
-
             _optionRow(
               context,
               optionGradient,
@@ -175,47 +159,20 @@ class Parlour extends StatelessWidget {
         ),
       ),
 
-      // ai search
-      floatingActionButton: GestureDetector(
+      // ================= AI SEARCH FAB =================
+      floatingActionButton: _AnimatedAiSearchButton(
+        gradient: geminiGradient,
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const AiSearchPage()),
           );
         },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-          decoration: BoxDecoration(
-            gradient: geminiGradient,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.35),
-                blurRadius: 14,
-                offset: const Offset(0, 6),
-              ),
-            ],
-          ),
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.auto_awesome, color: Colors.white),
-              SizedBox(width: 8),
-              Text(
-                "AI Search",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
 
-  // option box
+  // ================= OPTION ROW =================
   Widget _optionRow(
     BuildContext context,
     LinearGradient gradient, {
@@ -259,43 +216,26 @@ class Parlour extends StatelessWidget {
     );
   }
 
-  // 
   Widget _optionBox({
     required String text,
     required VoidCallback onTap,
     required LinearGradient gradient,
   }) {
     return InkWell(
-      borderRadius: BorderRadius.circular(12),
       onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
       child: Container(
-        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           gradient: gradient,
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 12,
-              offset: const Offset(0, 6),
-            ),
-          ],
         ),
         child: Center(
           child: Text(
             text,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 15,
               fontWeight: FontWeight.bold,
               color: Colors.black,
-              shadows: [
-                Shadow(
-                  offset: Offset(2, 2),
-                  blurRadius: 6,
-                  color: Colors.black,
-                ),
-              ],
             ),
           ),
         ),
@@ -303,14 +243,13 @@ class Parlour extends StatelessWidget {
     );
   }
 
-  // neon
   Widget _neonDivider() {
     return Container(
       height: 28,
       width: 1.6,
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
@@ -319,42 +258,139 @@ class Parlour extends StatelessWidget {
             Color(0xFFFF4081),
           ],
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.cyanAccent.withOpacity(0.9),
-            blurRadius: 10,
-          ),
-        ],
       ),
     );
   }
 }
 
-// header style
-class _StylishHeaderText extends StatelessWidget {
-  final bool isDark;
-  const _StylishHeaderText({required this.isDark});
+// ================= NOORCALL ANIMATION =================
+class _AnimatedHeaderText extends StatefulWidget {
+  const _AnimatedHeaderText();
+
+  @override
+  State<_AnimatedHeaderText> createState() => _AnimatedHeaderTextState();
+}
+
+class _AnimatedHeaderTextState extends State<_AnimatedHeaderText>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _opacity;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
+          ..repeat(reverse: true);
+
+    _opacity = Tween<double>(begin: 0.2, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ShaderMask(
-      shaderCallback: (bounds) => const LinearGradient(
-        colors: [
-          Color(0xFF00E5FF),
-          Color(0xFF69F0AE),
-        ],
-      ).createShader(bounds),
-      child: Text(
-        "NoorCall",
-        style: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.w800,
-          letterSpacing: 2,
-          color: Colors.white,
-          shadows: [
-            Shadow(
-              color: Colors.cyanAccent.withOpacity(0.9),
+    return FadeTransition(
+      opacity: _opacity,
+      child: ShaderMask(
+        shaderCallback: (bounds) => const LinearGradient(
+          colors: [
+            Color(0xFF00E5FF),
+            Color(0xFF69F0AE),
+          ],
+        ).createShader(bounds),
+        child: const Text(
+          "NoorCall",
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w800,
+            letterSpacing: 2,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ================= AI SEARCH ICON ANIMATION =================
+class _AnimatedAiSearchButton extends StatefulWidget {
+  final VoidCallback onTap;
+  final LinearGradient gradient;
+
+  const _AnimatedAiSearchButton({
+    required this.onTap,
+    required this.gradient,
+  });
+
+  @override
+  State<_AnimatedAiSearchButton> createState() =>
+      _AnimatedAiSearchButtonState();
+}
+
+class _AnimatedAiSearchButtonState extends State<_AnimatedAiSearchButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _opacity;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
+          ..repeat(reverse: true);
+
+    _opacity = Tween<double>(begin: 0.2, end: 1.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+        decoration: BoxDecoration(
+          gradient: widget.gradient,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.35),
               blurRadius: 14,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FadeTransition(
+              opacity: _opacity,
+              child: const Icon(
+  Icons.auto_awesome,
+  color: Color(0xFFFFD700), // GOLD
+),
+            ),
+            const SizedBox(width: 8),
+            const Text(
+              "AI Search",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
