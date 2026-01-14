@@ -20,49 +20,127 @@ class _CategoryPagesState extends State<CategoryPages> {
   bool get isMen => widget.gender == GenderType.men;
   bool get isWomen => widget.gender == GenderType.women;
 
-  String getSortLabel() {
-    if (selectedSort == "high") return "High → Low";
-    if (selectedSort == "low") return "Low → High";
-    return "Sort by price";
-  }
-
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    const LinearGradient neonHeaderBorder = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color(0xFF00E5FF),
+        Color(0xFF7C4DFF),
+        Color(0xFFFF4081),
+      ],
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(isMen ? "Men Services" : "Women Services"),
-        actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.sort),
-            onSelected: (value) {
-              setState(() {
-                selectedSort = value;
-              });
-            },
-            itemBuilder: (context) => const [
-              PopupMenuItem(
-                value: "high",
-                child: Text("Price: High → Low"),
+      // ================= NEON HEADER =================
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(110),
+        child: SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: neonHeaderBorder,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.cyanAccent.withOpacity(0.6),
+                    blurRadius: 16,
+                  ),
+                ],
               ),
-              PopupMenuItem(
-                value: "low",
-                child: Text("Price: Low → High"),
+              padding: const EdgeInsets.all(2.5),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.black : Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                child: Row(
+                  children: [
+                    // BACK
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: isDark ? Colors.white : Colors.black,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+
+                    // TITLE
+                    Expanded(
+                      child: Text(
+                        isMen ? "Men Services" : "Women Services",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: isDark ? Colors.white : Colors.black,
+                        ),
+                      ),
+                    ),
+
+                    // FILTER ICON + LABEL
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        PopupMenuButton<String>(
+                          icon: Icon(
+                            Icons.sort,
+                            color: isDark ? Colors.white : Colors.black,
+                          ),
+                          onSelected: (value) {
+                            setState(() {
+                              selectedSort = value;
+                            });
+                          },
+                          itemBuilder: (context) => const [
+                            PopupMenuItem(
+                              value: "high",
+                              child: Text("Price: High → Low"),
+                            ),
+                            PopupMenuItem(
+                              value: "low",
+                              child: Text("Price: Low → High"),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          "Filters",
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: isDark
+                                ? Colors.white70
+                                : Colors.grey.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
-        ],
+        ),
       ),
+
+      // ================= BODY (UNCHANGED) =================
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
             const SizedBox(height: 70),
-
             SizedBox(
-              
               width: double.infinity,
               child: Card(
-                color:Colors.transparent,
+                color: Colors.transparent,
                 elevation: 6,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -72,29 +150,19 @@ class _CategoryPagesState extends State<CategoryPages> {
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     children: [
-                      // 🔹 FIRST ROW
                       Row(
                         children: [
-                          if (isMen)
-                            Expanded(
-                              child: InkWell(
-                                onTap: () => _openList(context),
-                                child: _categoryBox(
-                                  text: "Hair",
-                                  iconPath: "assets/Hair_men.png",
-                                ),
+                          Expanded(
+                            child: InkWell(
+                              onTap: () => _openList(context),
+                              child: _categoryBox(
+                                text: "Hair",
+                                iconPath: isMen
+                                    ? "assets/Hair_men.png"
+                                    : "assets/Hair_women.png",
                               ),
                             ),
-                          if (isWomen)
-                            Expanded(
-                              child: InkWell(
-                                onTap: () => _openList(context),
-                                child: _categoryBox(
-                                  text: "Hair",
-                                  iconPath: "assets/Hair_women.png",
-                                ),
-                              ),
-                            ),
+                          ),
                           const SizedBox(width: 12),
                           Expanded(
                             child: InkWell(
@@ -107,32 +175,21 @@ class _CategoryPagesState extends State<CategoryPages> {
                           ),
                         ],
                       ),
-
                       const SizedBox(height: 12),
-
-                      // 🔹 WOMEN ONLY
                       if (isWomen)
-                        SizedBox(
-                          width: double.infinity,
-                          child: InkWell(
-                            onTap: () => _openList(context),
-                            child: _categoryBox(
-                              text: "Makeup",
-                              iconPath: "assets/Makeup_women.png",
-                            ),
+                        InkWell(
+                          onTap: () => _openList(context),
+                          child: _categoryBox(
+                            text: "Makeup",
+                            iconPath: "assets/Makeup_women.png",
                           ),
                         ),
-
-                      // 🔹 MEN ONLY
                       if (isMen)
-                        SizedBox(
-                          width: double.infinity,
-                          child: InkWell(
-                            onTap: () => _openList(context),
-                            child: _categoryBox(
-                              text: "Groom Makeup Artist",
-                              iconPath: "assets/Makeup_men.png",
-                            ),
+                        InkWell(
+                          onTap: () => _openList(context),
+                          child: _categoryBox(
+                            text: "Groom Makeup Artist",
+                            iconPath: "assets/Makeup_men.png",
                           ),
                         ),
                     ],
@@ -153,7 +210,6 @@ class _CategoryPagesState extends State<CategoryPages> {
     );
   }
 
-  // ✅ IMAGE + TEXT BOX (50x50 image, black text)
   Widget _categoryBox({
     required String text,
     required String iconPath,
@@ -169,12 +225,7 @@ class _CategoryPagesState extends State<CategoryPages> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              iconPath,
-              height: 50,
-              width: 50,
-              fit: BoxFit.contain,
-            ),
+            Image.asset(iconPath, height: 50, width: 50),
             const SizedBox(width: 12),
             Text(
               text,

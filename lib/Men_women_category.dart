@@ -7,21 +7,91 @@ class MenWomenCtegory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // 🌈 OPTION GRADIENT
     const LinearGradient optionGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [
-        Color(0xFF7FC8F8), // blue
-        Color(0xFFF77EB9), // pink
-        Color(0xFFFED7A5), // peach
+        Color(0xFF7FC8F8),
+        Color(0xFFF77EB9),
+        Color(0xFFFED7A5),
+      ],
+    );
+
+    // 🌈 NEON HEADER BORDER
+    const LinearGradient neonHeaderBorder = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color(0xFF00E5FF),
+        Color(0xFF7C4DFF),
+        Color(0xFFFF4081),
       ],
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Categories"),
-        centerTitle: true,
+      // ================= NEON HEADER =================
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(110),
+        child: SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: neonHeaderBorder,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.cyanAccent.withOpacity(0.6),
+                    blurRadius: 16,
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.all(2.5),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.black : Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+                child: Row(
+                  children: [
+                    // BACK
+                    IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: isDark ? Colors.white : Colors.black,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+
+                    // TITLE
+                    const Expanded(
+                      child: Text(
+                        "Categories",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+
+                    // SPACER FOR CENTER ALIGN
+                    const SizedBox(width: 48),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
+
+      // ================= BODY =================
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: SizedBox(
@@ -113,14 +183,13 @@ class MenWomenCtegory extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ✅ WHITE BACKGROUND BLENDS, FACE STAYS
             SizedBox(
               height: 50,
               width: 50,
               child: ColorFiltered(
                 colorFilter: const ColorFilter.mode(
                   Colors.transparent,
-                  BlendMode.multiply, // ⭐ THIS IS THE KEY
+                  BlendMode.multiply,
                 ),
                 child: Image.asset(
                   img,
@@ -128,9 +197,7 @@ class MenWomenCtegory extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(width: 12),
-
             Text(
               text,
               style: const TextStyle(

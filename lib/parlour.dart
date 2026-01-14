@@ -34,7 +34,7 @@ class Parlour extends StatelessWidget {
       ],
     );
 
-    const LinearGradient neonHeaderBorder = LinearGradient(
+    const LinearGradient headerBorder = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
       colors: [
@@ -56,14 +56,8 @@ class Parlour extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(12, 12, 12, 10),
             child: Container(
               decoration: BoxDecoration(
-                gradient: neonHeaderBorder,
+                gradient: headerBorder,
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.cyanAccent.withOpacity(0.6),
-                    blurRadius: 18,
-                  ),
-                ],
               ),
               padding: const EdgeInsets.all(2.5),
               child: Container(
@@ -73,21 +67,40 @@ class Parlour extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.monetization_on,
-                          color: isDark ? Colors.white : Colors.black),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const Bonus()),
-                        );
-                      },
+                    // ===== BONUS =====
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.monetization_on,
+                            color: isDark ? Colors.white : Colors.black,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const Bonus()),
+                            );
+                          },
+                        ),
+                        Text(
+                          "Bonus",
+                          style: TextStyle(
+                            fontSize: 11,
+                            color:
+                                isDark ? Colors.white70 : Colors.black87,
+                          ),
+                        ),
+                      ],
                     ),
 
+                    // 🔹 NEON SEPARATOR (RESTORED)
                     _neonDivider(),
 
                     const Spacer(),
 
+                    // ===== LOGO + NAME =====
                     Row(
                       children: [
                         Image.asset('assets/logo.png', width: 36),
@@ -98,17 +111,35 @@ class Parlour extends StatelessWidget {
 
                     const Spacer(),
 
+                    // 🔹 NEON SEPARATOR (RESTORED)
                     _neonDivider(),
 
-                    IconButton(
-                      icon: Icon(Icons.menu_book_outlined,
-                          color: isDark ? Colors.white : Colors.black),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (_) => const Guid()),
-                        );
-                      },
+                    // ===== GUIDE =====
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.menu_book_outlined,
+                            color: isDark ? Colors.white : Colors.black,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => const Guid()),
+                            );
+                          },
+                        ),
+                        Text(
+                          "Guide",
+                          style: TextStyle(
+                            fontSize: 11,
+                            color:
+                                isDark ? Colors.white70 : Colors.black87,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -147,7 +178,8 @@ class Parlour extends StatelessWidget {
               leftText: "Category",
               leftTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const MenWomenCtegory()),
+                MaterialPageRoute(
+                    builder: (_) => const MenWomenCtegory()),
               ),
               rightText: "Contact Support",
               rightTap: () => Navigator.push(
@@ -243,11 +275,12 @@ class Parlour extends StatelessWidget {
     );
   }
 
+  // ================= NEON DIVIDER (RESTORED) =================
   Widget _neonDivider() {
     return Container(
-      height: 28,
+      height: 32,
       width: 1.6,
-      margin: const EdgeInsets.symmetric(horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -380,9 +413,9 @@ class _AnimatedAiSearchButtonState extends State<_AnimatedAiSearchButton>
             FadeTransition(
               opacity: _opacity,
               child: const Icon(
-  Icons.auto_awesome,
-  color: Color(0xFFFFD700), // GOLD
-),
+                Icons.auto_awesome,
+                color: Color(0xFFFFD700), // GOLD
+              ),
             ),
             const SizedBox(width: 8),
             const Text(
