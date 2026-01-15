@@ -54,7 +54,6 @@ class _AiSearchPageState extends State<AiSearchPage> {
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
                 child: Row(
                   children: [
-                    // ⬅ BACK
                     IconButton(
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
@@ -63,7 +62,6 @@ class _AiSearchPageState extends State<AiSearchPage> {
                       onPressed: () => Navigator.pop(context),
                     ),
 
-                    // TITLE
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +85,6 @@ class _AiSearchPageState extends State<AiSearchPage> {
                       ),
                     ),
 
-                    // spacer to keep title centered
                     const SizedBox(width: 48),
                   ],
                 ),
@@ -100,16 +97,39 @@ class _AiSearchPageState extends State<AiSearchPage> {
       // ================= BODY =================
       body: Column(
         children: [
-          // 🔹 Future AI responses here
+          // 🔹 AI INTRO / HINT
           Expanded(
             child: Center(
-              child: Text(
-                "AI search will display the top saloons based on location",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.grey.shade600,
-                  fontSize: 14,
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // ================= ICON ROW =================
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.face, size: 34, color: Colors.blueGrey),
+                      SizedBox(width: 10),
+                      Icon(Icons.content_cut,
+                          size: 34, color: Colors.pinkAccent),
+                      SizedBox(width: 10),
+                      Icon(Icons.face_retouching_natural,
+                          size: 34, color: Colors.deepPurple),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // ================= TEXT =================
+                  Text(
+                    "Ask AI to find the best saloons\nfor men & women near you",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      fontSize: 14,
+                      height: 1.4,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -139,13 +159,12 @@ class _AiSearchPageState extends State<AiSearchPage> {
                         fontWeight: FontWeight.w300,
                       ),
                       border: OutlineInputBorder(
-  borderRadius: BorderRadius.circular(30),
-  borderSide: const BorderSide(
-    color: Colors.white, // 
-    width: 1.2,
-  ),
-),
-
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide: const BorderSide(
+                          color: Colors.white,
+                          width: 1.2,
+                        ),
+                      ),
                       filled: true,
                       fillColor: Colors.grey.shade900,
                       contentPadding:
@@ -157,7 +176,7 @@ class _AiSearchPageState extends State<AiSearchPage> {
                 IconButton(
                   icon: const Icon(
                     Icons.send,
-                    color: Color(0xFFFFD700), // ✨ Gold send icon
+                    color: Colors.lightBlueAccent, // ✨ Gold
                   ),
                   onPressed: () {
                     print(_controller.text);

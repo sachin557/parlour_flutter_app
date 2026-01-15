@@ -95,7 +95,6 @@ class Parlour extends StatelessWidget {
                       ],
                     ),
 
-                    // 🔹 NEON SEPARATOR (RESTORED)
                     _neonDivider(),
 
                     const Spacer(),
@@ -111,7 +110,6 @@ class Parlour extends StatelessWidget {
 
                     const Spacer(),
 
-                    // 🔹 NEON SEPARATOR (RESTORED)
                     _neonDivider(),
 
                     // ===== GUIDE =====
@@ -155,15 +153,19 @@ class Parlour extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 60),
+
+            // ===== ROW 1 =====
             _optionRow(
               context,
               optionGradient,
               leftText: "Parlour Near Me",
+              leftIcon: Icons.location_on,
               leftTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const NearMe()),
               ),
               rightText: "Book An Appointment",
+              rightIcon: Icons.calendar_month,
               rightTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -171,17 +173,22 @@ class Parlour extends StatelessWidget {
                 ),
               ),
             ),
+
             const SizedBox(height: 12),
+
+            // ===== ROW 2 =====
             _optionRow(
               context,
               optionGradient,
               leftText: "Category",
+              leftIcon: Icons.category,
               leftTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (_) => const MenWomenCtegory()),
               ),
               rightText: "Contact Support",
+              rightIcon: Icons.support_agent,
               rightTap: () => Navigator.push(
                 context,
                 MaterialPageRoute(builder: (_) => const Support()),
@@ -209,8 +216,10 @@ class Parlour extends StatelessWidget {
     BuildContext context,
     LinearGradient gradient, {
     required String leftText,
+    required IconData leftIcon,
     required VoidCallback leftTap,
     required String rightText,
+    required IconData rightIcon,
     required VoidCallback rightTap,
   }) {
     return SizedBox(
@@ -229,6 +238,7 @@ class Parlour extends StatelessWidget {
               Expanded(
                 child: _optionBox(
                   text: leftText,
+                  icon: leftIcon,
                   onTap: leftTap,
                   gradient: gradient,
                 ),
@@ -237,6 +247,7 @@ class Parlour extends StatelessWidget {
               Expanded(
                 child: _optionBox(
                   text: rightText,
+                  icon: rightIcon,
                   onTap: rightTap,
                   gradient: gradient,
                 ),
@@ -248,8 +259,10 @@ class Parlour extends StatelessWidget {
     );
   }
 
+  // ================= OPTION BOX =================
   Widget _optionBox({
     required String text,
+    required IconData icon,
     required VoidCallback onTap,
     required LinearGradient gradient,
   }) {
@@ -261,21 +274,26 @@ class Parlour extends StatelessWidget {
           gradient: gradient,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Center(
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 34, color: Colors.black),
+            const SizedBox(height: 8),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
   }
 
-  // ================= NEON DIVIDER (RESTORED) =================
+  // ================= NEON DIVIDER =================
   Widget _neonDivider() {
     return Container(
       height: 32,
@@ -352,7 +370,7 @@ class _AnimatedHeaderTextState extends State<_AnimatedHeaderText>
   }
 }
 
-// ================= AI SEARCH ICON ANIMATION =================
+// ================= AI SEARCH BUTTON =================
 class _AnimatedAiSearchButton extends StatefulWidget {
   final VoidCallback onTap;
   final LinearGradient gradient;
