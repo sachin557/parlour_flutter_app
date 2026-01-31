@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:parlour_app/gender_type.dart';
-import 'makeuplist.dart';
+import 'makeuplist.dart'; // This is NameList page
 
 class CategoryPages extends StatefulWidget {
   final GenderType gender;
+  
 
   const CategoryPages({
     super.key,
@@ -85,7 +86,7 @@ class _CategoryPagesState extends State<CategoryPages> {
                       ),
                     ),
 
-                    // FILTER ICON + LABEL
+                    // FILTER
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -131,7 +132,7 @@ class _CategoryPagesState extends State<CategoryPages> {
         ),
       ),
 
-      // ================= BODY (UNCHANGED) =================
+      // ================= BODY =================
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -154,7 +155,7 @@ class _CategoryPagesState extends State<CategoryPages> {
                         children: [
                           Expanded(
                             child: InkWell(
-                              onTap: () => _openList(context),
+                              onTap: () => _openList(context, "hair"),
                               child: _categoryBox(
                                 text: "Hair",
                                 iconPath: isMen
@@ -166,7 +167,7 @@ class _CategoryPagesState extends State<CategoryPages> {
                           const SizedBox(width: 12),
                           Expanded(
                             child: InkWell(
-                              onTap: () => _openList(context),
+                              onTap: () => _openList(context, "spa"),
                               child: _categoryBox(
                                 text: isMen ? "Men Spa" : "Spa",
                                 iconPath: "assets/spa.png",
@@ -178,7 +179,7 @@ class _CategoryPagesState extends State<CategoryPages> {
                       const SizedBox(height: 12),
                       if (isWomen)
                         InkWell(
-                          onTap: () => _openList(context),
+                          onTap: () => _openList(context, "makeup"),
                           child: _categoryBox(
                             text: "Makeup",
                             iconPath: "assets/Makeup_women.png",
@@ -186,7 +187,7 @@ class _CategoryPagesState extends State<CategoryPages> {
                         ),
                       if (isMen)
                         InkWell(
-                          onTap: () => _openList(context),
+                          onTap: () => _openList(context, "makeup"),
                           child: _categoryBox(
                             text: "Groom Makeup Artist",
                             iconPath: "assets/Makeup_men.png",
@@ -203,13 +204,20 @@ class _CategoryPagesState extends State<CategoryPages> {
     );
   }
 
-  void _openList(BuildContext context) {
+  // ================= NAVIGATION =================
+  void _openList(BuildContext context, String category) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => const NameList()),
+      MaterialPageRoute(
+        builder: (_) => NameList(
+          gender: isMen ? "men" : "women",
+          category: category,
+        ),
+      ),
     );
   }
 
+  // ================= CATEGORY BOX =================
   Widget _categoryBox({
     required String text,
     required String iconPath,
