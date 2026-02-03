@@ -22,6 +22,8 @@ class _NameListState extends State<NameList> {
   String? error;
   List<Map<String, dynamic>> parlours = [];
 
+  String sortBy = "high";
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +32,11 @@ class _NameListState extends State<NameList> {
 
   // ================= BACKEND API CALL =================
   Future<void> fetchParlours() async {
+    setState(() {
+      loading = true;
+      error = null;
+    });
+
     try {
       final response = await http.post(
         Uri.parse("http://127.0.0.1:8000/search-saloons"),
@@ -37,6 +44,7 @@ class _NameListState extends State<NameList> {
         body: jsonEncode({
           "gender": widget.gender,
           "category": widget.category,
+          "sort": sortBy,
         }),
       );
 
@@ -54,7 +62,6 @@ class _NameListState extends State<NameList> {
         });
       }
     } catch (e) {
-      debugPrint("FRONTEND ERROR: $e");
       setState(() {
         error = "Unable to reach server";
         loading = false;
@@ -65,13 +72,121 @@ class _NameListState extends State<NameList> {
   // ================= UI =================
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    const LinearGradient neonBorder = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color(0xFF00E5FF),
+        Color(0xFF7C4DFF),
+        Color(0xFFFF4081),
+      ],
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "${widget.gender.toUpperCase()} - ${widget.category.toUpperCase()}",
+      // ================= PREMIUM HEADER =================
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(120),
+        child: SafeArea(
+          bottom: false,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: neonBorder,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.cyanAccent.withOpacity(0.5),
+                    blurRadius: 18,
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.all(2.5),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: isDark ? Colors.black : Colors.white,
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                child: Row(
+                  children: [
+                    // 🔙 BACK
+                    _headerIcon(
+                      icon: Icons.arrow_back_ios_new_rounded,
+                      isDark: isDark,
+                      onTap: () => Navigator.pop(context),
+                    ),
+
+                    // 🧾 TITLE
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            widget.gender.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 12,
+                              letterSpacing: 1.4,
+                              fontWeight: FontWeight.w600,
+                              color: isDark
+                                  ? Colors.white70
+                                  : Colors.grey.shade700,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            widget.category.toUpperCase(),
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.3,
+                              color:
+                                  isDark ? Colors.white : Colors.grey.shade900,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // 🔀 SORT
+                    PopupMenuButton<String>(
+                      tooltip: "Sort",
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      icon: Icon(
+                        Icons.sort,
+                        color: isDark ? Colors.white : Colors.black,
+                      ),
+                      onSelected: (value) {
+                        setState(() {
+                          sortBy = value;
+                        });
+                        fetchParlours();
+                      },
+                      itemBuilder: (context) => const [
+                        PopupMenuItem(
+                          value: "high",
+                          child: Text("Rating: High → Low"),
+                        ),
+                        PopupMenuItem(
+                          value: "low",
+                          child: Text("Rating: Low → High"),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
-        centerTitle: true,
       ),
+
+      // ================= BODY =================
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : error != null
@@ -81,6 +196,32 @@ class _NameListState extends State<NameList> {
                   itemCount: parlours.length,
                   itemBuilder: (_, i) => _parlourCard(parlours[i]),
                 ),
+    );
+  }
+
+  // ================= HEADER ICON =================
+  Widget _headerIcon({
+    required IconData icon,
+    required bool isDark,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(14),
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: isDark
+              ? Colors.white.withOpacity(0.08)
+              : Colors.black.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Icon(
+          icon,
+          size: 20,
+          color: isDark ? Colors.white : Colors.black,
+        ),
+      ),
     );
   }
 
@@ -105,7 +246,6 @@ class _NameListState extends State<NameList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // NAME + RATING
             Row(
               children: [
                 Expanded(
@@ -122,10 +262,7 @@ class _NameListState extends State<NameList> {
                 Text(rating.toString()),
               ],
             ),
-
             const SizedBox(height: 8),
-
-            // ADDRESS
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -134,10 +271,7 @@ class _NameListState extends State<NameList> {
                 Expanded(child: Text(address)),
               ],
             ),
-
             const SizedBox(height: 8),
-
-            // OPENING HOURS
             if (openTime.isNotEmpty)
               Row(
                 children: [
@@ -147,10 +281,7 @@ class _NameListState extends State<NameList> {
                   Text(openTime),
                 ],
               ),
-
             const SizedBox(height: 10),
-
-            // ACTION ICONS
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

@@ -18,7 +18,20 @@ class Support extends StatelessWidget {
       ],
     );
 
+    // 🌈 CARD GRADIENT
+    const LinearGradient cardGradient = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color(0xFF7FC8F8),
+        Color(0xFFF77EB9),
+        Color(0xFFFED7A5),
+      ],
+    );
+
     return Scaffold(
+      backgroundColor: isDark ? Colors.black : Colors.grey.shade100,
+
       // ================= NEON HEADER =================
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(110),
@@ -47,7 +60,6 @@ class Support extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
                 child: Row(
                   children: [
-                    // BACK BUTTON
                     IconButton(
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
@@ -55,8 +67,6 @@ class Support extends StatelessWidget {
                       ),
                       onPressed: () => Navigator.pop(context),
                     ),
-
-                    // TITLE
                     const Expanded(
                       child: Text(
                         "Contact Details",
@@ -67,8 +77,6 @@ class Support extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    // SPACER (to center title)
                     const SizedBox(width: 48),
                   ],
                 ),
@@ -80,48 +88,141 @@ class Support extends StatelessWidget {
 
       // ================= BODY =================
       body: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(height: 30),
+
+            // -------- SUPPORT CARD --------
+            Container(
               width: double.infinity,
-              child: Card(
-                elevation: 6,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Container(
-                  height: 120,
-                  padding: const EdgeInsets.all(12),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            // TODO: add action
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                "Support Email:\nContact Number:",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                gradient: cardGradient,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    blurRadius: 16,
+                    offset: const Offset(0, 8),
                   ),
-                ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  // ICON
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.25),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.support_agent,
+                      size: 42,
+                      color: Colors.black,
+                    ),
+                  ),
+
+                  const SizedBox(height: 18),
+
+                  const Text(
+                    "Need Help?",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+
+                  const SizedBox(height: 6),
+
+                  const Text(
+                    "We’re here to support you",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black87,
+                    ),
+                  ),
+
+                  const SizedBox(height: 22),
+
+                  // -------- EMAIL TILE --------
+                  _contactTile(
+                    icon: Icons.email_outlined,
+                    title: "Support Email",
+                    value: "support-noorcall@gamil.com",
+                    onTap: () {
+                      // TODO: open email
+                    },
+                  ),
+
+                  const SizedBox(height: 14),
+
+                  // -------- PHONE TILE --------
+                  _contactTile(
+                    icon: Icons.call_outlined,
+                    title: "Contact Number",
+                    value: "",
+                    onTap: () {
+                      // TODO: call number
+                    },
+                  ),
+                ],
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ================= CONTACT TILE =================
+  Widget _contactTile({
+    required IconData icon,
+    required String title,
+    required String value,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.35),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.black),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    value,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios,
+                size: 14, color: Colors.black54),
           ],
         ),
       ),
