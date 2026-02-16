@@ -7,7 +7,7 @@ class Support extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 🌈 NEON HEADER BORDER
+    // Header style
     const LinearGradient neonHeaderBorder = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -18,7 +18,7 @@ class Support extends StatelessWidget {
       ],
     );
 
-    // 🌈 CARD GRADIENT
+    // option box style
     const LinearGradient cardGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -32,7 +32,7 @@ class Support extends StatelessWidget {
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.grey.shade100,
 
-      // ================= NEON HEADER =================
+      // header style
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(110),
         child: SafeArea(
@@ -86,14 +86,14 @@ class Support extends StatelessWidget {
         ),
       ),
 
-      // ================= BODY =================
+      // body
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             const SizedBox(height: 30),
 
-            // -------- SUPPORT CARD --------
+            // support widget
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(18),
@@ -110,7 +110,7 @@ class Support extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  // ICON
+                  // icons
                   Container(
                     padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
@@ -147,7 +147,7 @@ class Support extends StatelessWidget {
 
                   const SizedBox(height: 22),
 
-                  // -------- EMAIL TILE --------
+                  // Support details
                   _contactTile(
                     icon: Icons.email_outlined,
                     title: "Support Email",
@@ -159,13 +159,13 @@ class Support extends StatelessWidget {
 
                   const SizedBox(height: 14),
 
-                  // -------- PHONE TILE --------
+                  // phone number details
                   _contactTile(
                     icon: Icons.call_outlined,
                     title: "Contact Number",
                     value: "",
                     onTap: () {
-                      // TODO: call number
+                      // TODO: we can add any option or navigation here
                     },
                   ),
                 ],
@@ -177,7 +177,7 @@ class Support extends StatelessWidget {
     );
   }
 
-  // ================= CONTACT TILE =================
+  // contact info styleing and aligning 
   Widget _contactTile({
     required IconData icon,
     required String title,

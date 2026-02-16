@@ -30,7 +30,7 @@ class _NameListState extends State<NameList> {
     fetchParlours();
   }
 
-  // ================= BACKEND API CALL =================
+  // api call
   Future<void> fetchParlours() async {
     setState(() {
       loading = true;
@@ -39,7 +39,7 @@ class _NameListState extends State<NameList> {
 
     try {
       final response = await http.post(
-        Uri.parse("http://127.0.0.1:8000/search-saloons"),
+        Uri.parse("https://parlour-backend-ruuu.onrender.com/search-saloons"),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "gender": widget.gender,
@@ -69,7 +69,7 @@ class _NameListState extends State<NameList> {
     }
   }
 
-  // ================= UI =================
+  // User input
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -85,7 +85,7 @@ class _NameListState extends State<NameList> {
     );
 
     return Scaffold(
-      // ================= PREMIUM HEADER =================
+      // Header style
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(120),
         child: SafeArea(
@@ -113,14 +113,14 @@ class _NameListState extends State<NameList> {
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                 child: Row(
                   children: [
-                    // 🔙 BACK
+                    // BACK button
                     _headerIcon(
                       icon: Icons.arrow_back_ios_new_rounded,
                       isDark: isDark,
                       onTap: () => Navigator.pop(context),
                     ),
 
-                    // 🧾 TITLE
+                    //TITLE
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +151,7 @@ class _NameListState extends State<NameList> {
                       ),
                     ),
 
-                    // 🔀 SORT
+                    // SORT option
                     PopupMenuButton<String>(
                       tooltip: "Sort",
                       shape: RoundedRectangleBorder(
@@ -186,7 +186,7 @@ class _NameListState extends State<NameList> {
         ),
       ),
 
-      // ================= BODY =================
+      // Body widget
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : error != null
@@ -199,7 +199,7 @@ class _NameListState extends State<NameList> {
     );
   }
 
-  // ================= HEADER ICON =================
+  // Header icons
   Widget _headerIcon({
     required IconData icon,
     required bool isDark,
@@ -225,7 +225,7 @@ class _NameListState extends State<NameList> {
     );
   }
 
-  // ================= PARLOUR CARD =================
+  // results from api call
   Widget _parlourCard(Map<String, dynamic> item) {
     final name = item["name"] ?? "";
     final address = item["address"] ?? "";
@@ -309,7 +309,7 @@ class _NameListState extends State<NameList> {
     );
   }
 
-  // ================= URL LAUNCHER =================
+  // do the api url call
   Future<void> _launch(String url) async {
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {

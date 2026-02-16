@@ -36,7 +36,7 @@ class _CategoryPagesState extends State<CategoryPages> {
     );
 
     return Scaffold(
-      // ================= NEON HEADER =================
+      // Header
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(110),
         child: SafeArea(
@@ -73,7 +73,7 @@ class _CategoryPagesState extends State<CategoryPages> {
                       onPressed: () => Navigator.pop(context),
                     ),
 
-                    // TITLE
+                    // Title
                     Expanded(
                       child: Text(
                         isMen ? "Men Services" : "Women Services",
@@ -86,7 +86,7 @@ class _CategoryPagesState extends State<CategoryPages> {
                       ),
                     ),
 
-                    // FILTER
+                    // Filter
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -132,7 +132,7 @@ class _CategoryPagesState extends State<CategoryPages> {
         ),
       ),
 
-      // ================= BODY =================
+      // body widget
       body: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -204,7 +204,7 @@ class _CategoryPagesState extends State<CategoryPages> {
     );
   }
 
-  // ================= NAVIGATION =================
+  // navigation options
   void _openList(BuildContext context, String category) {
     Navigator.push(
       context,
@@ -217,7 +217,7 @@ class _CategoryPagesState extends State<CategoryPages> {
     );
   }
 
-  // ================= CATEGORY BOX =================
+  // box styles and details
   Widget _categoryBox({
     required String text,
     required String iconPath,

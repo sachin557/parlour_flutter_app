@@ -7,7 +7,7 @@ class Guid extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 🌈 NEON HEADER BORDER (same as Parlour)
+    // header
     const LinearGradient neonHeaderBorder = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -18,7 +18,7 @@ class Guid extends StatelessWidget {
       ],
     );
 
-    // 🌈 CARD GRADIENT
+    // widget styling and option
     const LinearGradient guideGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -32,7 +32,7 @@ class Guid extends StatelessWidget {
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.grey.shade100,
 
-      // ================= NEON HEADER =================
+      // Header style
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(110),
         child: SafeArea(
@@ -86,14 +86,14 @@ class Guid extends StatelessWidget {
         ),
       ),
 
-      // ================= BODY =================
+      // body widget
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
             const SizedBox(height: 20),
 
-            // -------- INTRO CARD --------
+            // Info
             Container(
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
@@ -134,7 +134,7 @@ class Guid extends StatelessWidget {
 
             const SizedBox(height: 26),
 
-            // -------- GUIDE ITEMS --------
+            // Guid details
             _guideTile(
               icon: Icons.location_on,
               title: "Parlour Near Me",
@@ -182,7 +182,7 @@ class Guid extends StatelessWidget {
     );
   }
 
-  // ================= GUIDE TILE =================
+  // Guide title
   Widget _guideTile({
     required IconData icon,
     required String title,

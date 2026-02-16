@@ -13,7 +13,7 @@ class Parlour extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
-
+    // option style
     const LinearGradient optionGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -23,7 +23,7 @@ class Parlour extends StatelessWidget {
         Color(0xFFFED7A5),
       ],
     );
-
+    // gemini start style
     const LinearGradient geminiGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -33,7 +33,7 @@ class Parlour extends StatelessWidget {
         Color(0xFFD96570),
       ],
     );
-
+   // header style
     const LinearGradient headerBorder = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -45,7 +45,7 @@ class Parlour extends StatelessWidget {
     );
 
     return Scaffold(
-      // ================= HEADER =================
+      // header widget style and alignment
       appBar: AppBar(
         toolbarHeight: 96,
         elevation: 0,
@@ -67,7 +67,7 @@ class Parlour extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // ===== BONUS =====
+                    // bonus option on top
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -99,7 +99,7 @@ class Parlour extends StatelessWidget {
 
                     const Spacer(),
 
-                    // ===== LOGO + NAME =====
+                    // logo and app name
                     Row(
                       children: [
                         Image.asset('assets/logo.png', width: 36),
@@ -112,7 +112,7 @@ class Parlour extends StatelessWidget {
 
                     _neonDivider(),
 
-                    // ===== GUIDE =====
+                    // guid option in header widget
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -147,14 +147,14 @@ class Parlour extends StatelessWidget {
         ),
       ),
 
-      // ================= BODY =================
+      // body widget
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             const SizedBox(height: 60),
 
-            // ===== ROW 1 =====
+            // option row 1 for 2 boxes
             _optionRow(
               context,
               optionGradient,
@@ -176,7 +176,7 @@ class Parlour extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            // ===== ROW 2 =====
+            // option row 2 boxes
             _optionRow(
               context,
               optionGradient,
@@ -198,7 +198,7 @@ class Parlour extends StatelessWidget {
         ),
       ),
 
-      // ================= AI SEARCH FAB =================
+      // AI search floating option
       floatingActionButton: _AnimatedAiSearchButton(
         gradient: geminiGradient,
         onTap: () {
@@ -211,7 +211,7 @@ class Parlour extends StatelessWidget {
     );
   }
 
-  // ================= OPTION ROW =================
+  // aligning styling for the option boxes 
   Widget _optionRow(
     BuildContext context,
     LinearGradient gradient, {
@@ -259,7 +259,7 @@ class Parlour extends StatelessWidget {
     );
   }
 
-  // ================= OPTION BOX =================
+  // option box
   Widget _optionBox({
     required String text,
     required IconData icon,
@@ -293,7 +293,7 @@ class Parlour extends StatelessWidget {
     );
   }
 
-  // ================= NEON DIVIDER =================
+  // dividing guid logo bonus by neon vertical bar
   Widget _neonDivider() {
     return Container(
       height: 32,
@@ -314,7 +314,7 @@ class Parlour extends StatelessWidget {
   }
 }
 
-// ================= NOORCALL ANIMATION =================
+// logo name animation
 class _AnimatedHeaderText extends StatefulWidget {
   const _AnimatedHeaderText();
 
@@ -370,7 +370,7 @@ class _AnimatedHeaderTextState extends State<_AnimatedHeaderText>
   }
 }
 
-// ================= AI SEARCH BUTTON =================
+// AI button setup
 class _AnimatedAiSearchButton extends StatefulWidget {
   final VoidCallback onTap;
   final LinearGradient gradient;
@@ -432,7 +432,7 @@ class _AnimatedAiSearchButtonState extends State<_AnimatedAiSearchButton>
               opacity: _opacity,
               child: const Icon(
                 Icons.auto_awesome,
-                color: Color(0xFFFFD700), // GOLD
+                color: Color(0xFFFFD700), // gold color
               ),
             ),
             const SizedBox(width: 8),

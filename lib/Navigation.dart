@@ -23,11 +23,11 @@ class NavigationCategoryPages extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: Row(
                     children: [
-                      // LEFT
+                      // Left
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            // TODO: Navigator.push(...)
+                            // TODO: Navigator.push(...) // you can add navigation page here by creating.dart file 
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -49,11 +49,11 @@ class NavigationCategoryPages extends StatelessWidget {
 
                       const SizedBox(width: 12),
 
-                      // RIGHT
+                      // Right
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            // TODO: Navigator.push(...)
+                            // TODO: Navigator.push(...) // you can add navigation page here by creating.dart file
                           },
                           child: Container(
                             decoration: BoxDecoration(

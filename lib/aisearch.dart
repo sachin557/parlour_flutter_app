@@ -18,11 +18,11 @@ class _AiSearchPageState extends State<AiSearchPage>
   String? error;
   List<Map<String, dynamic>> results = [];
 
-  // DESKTOP API
+ // API link
   final String apiUrl =
-      "https://parlour-backend-ruuu.onrender.com/search-saloons";
+      "https://parlour-backend-ruuu.onrender.com/ai-search";
 
-  // 🔥 Animation
+  // Animation for loading
   late AnimationController _iconController;
   late Animation<double> _pulse;
 
@@ -40,7 +40,7 @@ class _AiSearchPageState extends State<AiSearchPage>
     );
   }
 
-  // ================= API CALL =================
+  // API Call with user input location
   Future<void> searchLocation() async {
     final location = _controller.text.trim();
     if (location.isEmpty) return;
@@ -90,7 +90,7 @@ class _AiSearchPageState extends State<AiSearchPage>
     super.dispose();
   }
 
-  // ================= UI =================
+  // User interface 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -157,7 +157,7 @@ class _AiSearchPageState extends State<AiSearchPage>
     );
   }
 
-  // ================= BODY =================
+  // Body widget
   Widget _bodyContent() {
     if (isLoading) {
       return const Center(child: CircularProgressIndicator());
@@ -180,7 +180,7 @@ class _AiSearchPageState extends State<AiSearchPage>
     );
   }
 
-  // ================= ANIMATED EMPTY STATE =================
+  // widget style initial (no result)
   Widget _animatedEmptyState() {
     return Center(
       child: Column(
@@ -235,7 +235,7 @@ class _AiSearchPageState extends State<AiSearchPage>
     );
   }
 
-  // ================= RESULT CARD =================
+  // Results from api call (backend)
   Widget _resultCard(Map<String, dynamic> item) {
     final name = item["name"] ?? "Salon";
     final address = item["address"] ?? "Address not available";
@@ -313,7 +313,7 @@ class _AiSearchPageState extends State<AiSearchPage>
     );
   }
 
-  // ================= INPUT BAR =================
+  // Input bar
   Widget _inputBar() {
     return Container(
       padding: const EdgeInsets.all(10),

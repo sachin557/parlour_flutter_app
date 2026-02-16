@@ -9,7 +9,7 @@ class MenWomenCtegory extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 🌈 OPTION GRADIENT
+    // option box style
     const LinearGradient optionGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -20,7 +20,7 @@ class MenWomenCtegory extends StatelessWidget {
       ],
     );
 
-    // 🌈 NEON HEADER BORDER
+    // Header
     const LinearGradient neonHeaderBorder = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -32,7 +32,7 @@ class MenWomenCtegory extends StatelessWidget {
     );
 
     return Scaffold(
-      // ================= NEON HEADER =================
+      //Header style
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(110),
         child: SafeArea(
@@ -60,7 +60,7 @@ class MenWomenCtegory extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
                 child: Row(
                   children: [
-                    // BACK
+                    // Back button
                     IconButton(
                       icon: Icon(
                         Icons.arrow_back_ios_new_rounded,
@@ -69,7 +69,7 @@ class MenWomenCtegory extends StatelessWidget {
                       onPressed: () => Navigator.pop(context),
                     ),
 
-                    // TITLE
+                    // Title name
                     const Expanded(
                       child: Text(
                         "Categories",
@@ -81,7 +81,7 @@ class MenWomenCtegory extends StatelessWidget {
                       ),
                     ),
 
-                    // SPACER FOR CENTER ALIGN
+                    // space
                     const SizedBox(width: 48),
                   ],
                 ),
@@ -91,7 +91,7 @@ class MenWomenCtegory extends StatelessWidget {
         ),
       ),
 
-      // ================= BODY =================
+      // body widget
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: SizedBox(
@@ -157,7 +157,7 @@ class MenWomenCtegory extends StatelessWidget {
     );
   }
 
-  // ================= OPTION BOX =================
+  // option box
   Widget _optionBox({
     required String text,
     required String img,

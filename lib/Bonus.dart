@@ -7,7 +7,7 @@ class Bonus extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
-    // 🌈 NEON HEADER BORDER
+    // Header neon color
     const LinearGradient neonHeaderBorder = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -18,7 +18,7 @@ class Bonus extends StatelessWidget {
       ],
     );
 
-    // 🌈 BONUS CARD GRADIENT
+    // Bonus color
     const LinearGradient bonusGradient = LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -32,7 +32,7 @@ class Bonus extends StatelessWidget {
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.grey.shade100,
 
-      // ================= NEON HEADER =================
+      //Header style
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(110),
         child: SafeArea(
@@ -86,14 +86,14 @@ class Bonus extends StatelessWidget {
         ),
       ),
 
-      // ================= BODY =================
+      // Body widget
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             const SizedBox(height: 30),
 
-            // -------- TOTAL BONUS CARD --------
+            // Bonus details
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(20),
@@ -139,7 +139,7 @@ class Bonus extends StatelessWidget {
 
             const SizedBox(height: 26),
 
-            // -------- INFO CARD --------
+            // Info about bonus
             Card(
               elevation: 8,
               shape: RoundedRectangleBorder(
@@ -175,7 +175,7 @@ class Bonus extends StatelessWidget {
 
             const Spacer(),
 
-            // -------- REFER BUTTON --------
+            // Refer details
             SizedBox(
               width: double.infinity,
               height: 48,

@@ -23,11 +23,11 @@ class NearMe extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: Row(
                     children: [
-                      // LEFT
+                      // option can be added and other info or data
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            // TODO: Navigator.push(...)
+                            // TODO: Navigator.push(...) //navigation buddon page
                           },
                           child: Container(
                             decoration: BoxDecoration(

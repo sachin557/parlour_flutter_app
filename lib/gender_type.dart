@@ -1,1 +1,1 @@
-enum GenderType { men, women }
+enum GenderType { men, women } //two different category variable value
